@@ -1,10 +1,25 @@
 ---
 title: "Start Your Quarto Project Here"
 author: "Yourself"
-date: today
+date: today'
+filters:
+  - webr
 editor_options: 
   chunk_output_type: console
 ---
+
+<form name="uploadForm">
+<div>
+<input id="uploadInput" type="file" multiple/>
+</div>
+<div>
+<label for="fileNum">Selected files:</label>
+<output id="fileNum">0</output>;
+<label for="fileSize">Total size:</label>
+<output id="fileSize">0</output>
+</div>
+</form>
+
 
 # My Analysis
 
@@ -12,3 +27,4 @@ editor_options:
 print("Hello There!")
 ```
 
+<script src="js/file-check.js" type="module"></script>

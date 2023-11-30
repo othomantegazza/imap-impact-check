@@ -10,6 +10,7 @@ project:
     - fonts/
     - js/
     - style/
+    - test.R
   
 format:
   html:
