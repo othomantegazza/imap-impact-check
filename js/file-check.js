@@ -4,6 +4,7 @@ const uploadInput = document.getElementById("uploadInput");
 console.log("ciao")
 
 async function analyze_file() {
+  // const reader = new FileReader();
   // const webR = new WebR.shelter();
   // await webR.init();
   //let rOut = await webR.captureR('read_input()')
@@ -12,17 +13,31 @@ async function analyze_file() {
   let scri = await fetch('test.R');
   let shelter = await new webR.Shelter();
   await shelter.evalR(await scri.text());
+
+
+  const file = await uploadInput.files[0]
+  const text = await file.text();
+  await webR.FS.mkdir("/data")
+  const buf = await file.arrayBuffer()
+  const uint8View = new Uint8Array(buf);
+  webR.FS.writeFile("/data/myfile.csv", uint8View)
+  //writeFile('data', file)
+  //const buf = new ArrayBuffer(text)
+
+
   let rOut = await shelter.evalR('read_input(vr = a)', {
     env: { a: 2 }
   });
 
-  const file = uploadInput.files[0]
-  const text = await file.text();
   console.log(
     {
       file: file,
-      // text: text,
+      //fileURL: fileURL,
+      webR: webR,
+      webRFS: webR.FS.writeFile,
+      text: text,
       rOut: await rOut.toJs(),
+      buf: buf.isView
     }
   )
 
