@@ -1,4 +1,5 @@
-read_input <- function() {
-  warning("No input")
-  return(2)
+read_input <- function(vr) {
+  # warning("No input")
+  return(vr + 1)
 }
+  

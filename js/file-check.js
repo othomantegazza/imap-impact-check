@@ -6,21 +6,23 @@ console.log("ciao")
 async function analyze_file() {
   // const webR = new WebR.shelter();
   // await webR.init();
-  // let scri = await fetch('test.R');
-  // await webR.evalR(await scri.text());
   //let rOut = await webR.captureR('read_input()')
   const webR = new WebR();
   await webR.init();
+  let scri = await fetch('test.R');
   let shelter = await new webR.Shelter();
-  let rOut = await shelter.captureR('print(rnorm(10,5,1))');
+  await shelter.evalR(await scri.text());
+  let rOut = await shelter.evalR('read_input(vr = a)', {
+    env: { a: 2 }
+  });
 
   const file = uploadInput.files[0]
   const text = await file.text();
   console.log(
     {
       file: file,
-      text: text,
-      rOut: rOut.output,
+      // text: text,
+      rOut: await rOut.toJs(),
     }
   )
 
